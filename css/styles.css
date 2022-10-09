@@ -8,6 +8,9 @@
     --red-light: #ED252D;
     --red: #BF1925;
     --black: #231F20;
+    --swiper-theme-color: #fff;
+
+    --primary-with-alpha: #0e0e0ee7;
 }
 
 .light-theme {
@@ -41,6 +44,36 @@ body {
     padding: 0 1rem;
 }
 
+/* swiper */
+
+.swiper-img {
+    height: 500px;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Spinner */
+.loading-spinner {
+    height: 100vh;
+    width: 100vw;
+    /* border: 2px solid; */
+    position: fixed;
+    top: 0;
+    z-index: 200;
+    animation: blury 1.5s ease;
+}
+
+@keyframes blury {
+    0% {
+        backdrop-filter: blur(30px);
+        background: rgba(7, 7, 7, 0.835);
+    }
+    100% {
+        backdrop-filter: blur(0px);
+        background: rgba(7, 7, 7, 0);
+    }
+}
+
 /* header */
 header {
     width: 100%;
@@ -48,7 +81,13 @@ header {
     display: flex;
     gap: 1.5rem;
     align-items: center;
-    /* justify-content:center; */
+    position: sticky;
+    z-index: 100;
+    top: 0;
+    left: 0;
+
+    backdrop-filter: blur(5px);
+    background: var(--primary-with-alpha);
 }
 
 header .logo {
@@ -63,4 +102,21 @@ header .logo span {
 /* main */
 main {
     min-height: 90vh;
+}
+
+main section {
+    min-height: 400px;
+}
+
+main section h3 {
+    margin: 1rem 0;
+}
+
+/* Footer */
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
 }

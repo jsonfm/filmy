@@ -12,17 +12,50 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
+    <div class="loading-spinner" id="loading-spinner"></div>
     <header class="container">
         <a class="logo">FIL<span>MY</span></a>
         <nav>
             <a>Movies</a>
         </nav>
     </header>
-    <main class="container">
-        main       
+    <main>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img 
+                    class="swiper-img"
+                    src="https://s.yimg.com/uu/api/res/1.2/0GBXd289dMqVEPaqTl4x5w--~B/aD0xNTAwO3c9MTAzNTthcHBpZD15dGFjaHlvbg--/http://media.zenfs.com/en/homerun/feed_manager_auto_publish_494/d05a3f087fa57f6d41b865d53a42a5f5"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img 
+                    class="swiper-img"
+                    src="https://www.adobe.com/express/create/poster/media_14f888136eecf9b6e4d83386789e660f15349f96c.jpeg?width=400&format=jpeg&optimize=medium"
+                />
+              </div>
+              <div class="swiper-slide">
+                <img 
+                    class="swiper-img"
+                    src="https://cdn.shopify.com/s/files/1/0548/8404/0870/products/TheFrontLine-WarMoviePoster_821048c5-929c-44af-97ea-75dc51073889_1200x.jpg?v=1617381737"
+                />
+              </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div> 
+        <section class="most-famous">
+            <div class="container">
+                <h3>Most Famous now</h3>
+            </div>
+        </section>
+        <!-- <section class="most-watched">
+            <div class="container">
+                <h3>Most watched</h3>
+            </div>
+        </section> -->
     </main>
     <footer class="container">
-        footer
+        All rights reserved
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="./js/main.js"></script>
