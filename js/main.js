@@ -17,6 +17,7 @@ const loadingSpinner = document.getElementById('loading-spinner');
 const moviesContainer = document.getElementById('movies-container');
 const categoriesContainer = document.getElementById('categories-container');
 const searchContainer = document.getElementById('search-container');
+const moviesGrid = document.getElementById('movies-grid');
 
 const themeButton = document.getElementById('theme-button');
 const searchButton = document.getElementById('search-button');
@@ -61,6 +62,20 @@ const renderCategories = (categories) => {
     return html;
 }
 
+const renderMoviesGrid = (movies) => {
+    let html = ``;
+    movies.map((movie) => {
+        html += `
+        <div>
+            <img 
+                src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
+            />
+        </div>
+    `
+    });
+    moviesGrid.innerHTML = html;
+}
+
 
 
 const getTrendingDayMovies = async () => {
@@ -83,6 +98,7 @@ const getMoviesByCategory = async(categoryId) => {
     const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}`).then(res => res.json());
     const { results: movies } = response;
     console.log("movies: ", movies);
+    renderMoviesGrid(movies);
 }
 
 

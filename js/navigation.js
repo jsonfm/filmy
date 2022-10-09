@@ -16,7 +16,8 @@ function navigator() {
 function homePage(){
     $("movies-section").classList.remove("unvisible");
     $("header").classList.remove("unvisible");
-    $("categories-container").classList.remove("unvisible");
+    $("categories-section").classList.remove("unvisible");
+    $("movies-grid").classList.add("unvisible");
     console.log('home!');
 }
 
@@ -32,7 +33,9 @@ function categoryPage(){
     const categoryId = window.location.hash.replace("#category=", '');
     $("movies-section").classList.add("unvisible");
     $("header").classList.add("unvisible");
-    $("categories-container").classList.add("unvisible");
+    $("categories-section").classList.add("unvisible");
+    $("movies-grid").classList.remove("unvisible");
+    searchContainer.classList.remove("active");
     getMoviesByCategory(categoryId)
 }
 function movieDetail() {

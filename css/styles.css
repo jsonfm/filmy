@@ -61,7 +61,8 @@ input {
 
 .unvisible {
     visibility: hidden;
-    height: 0;
+    height: 0 !important;
+    min-height: 0;
 }
 
 .visible {
@@ -294,6 +295,12 @@ main section h3 {
     background: rgb(28, 40, 63);
 }
 
+/* movies grid */
+.movies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
 
 
 
