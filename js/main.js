@@ -7,11 +7,14 @@ const swiper = new Swiper(".mySwiper", {
     pagination: {
       el: ".swiper-pagination",
     },
+    observer: true
 });
 
 const loadingSpinner = document.getElementById('loading-spinner');
 const moviesContainer = document.getElementById('movies-container');
 const categoriesContainer = document.getElementById('categories-container');
+
+const themeButton = document.getElementById('theme-button');
 
 // Render functions
 const renderMovie = (movie) => {
@@ -35,7 +38,7 @@ const renderMovies = (movies) => {
 const renderCategory = (category) => {
     const html = `
     <div class="category">
-        <div class="icon"></div>
+        <div class="icon id${category.id}"></div>
         <h4>${category.name}</h4>
     </div>
     `
@@ -71,5 +74,9 @@ getMoviesCategories();
 window.addEventListener('load', () => {
     setTimeout(() => {
         loadingSpinner.style.display = 'none';
-    }, 2000);
+    }, 1500);
+})
+
+themeButton.addEventListener('click', () => {
+    document.body.classList.toggle('light-theme');
 })

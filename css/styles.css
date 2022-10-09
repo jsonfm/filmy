@@ -16,12 +16,14 @@
 .light-theme {
     --primary: #fff;
     --secondary: #0e0e0e;
+    --primary-with-alpha: #fcfcfce7;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: .15s linear;
 }
 
 html, body {
@@ -35,6 +37,7 @@ html {
 
 body {
     background: var(--primary);
+    color: var(--secondary);
 }
 
 
@@ -101,6 +104,11 @@ header .logo span {
     color: var(--red-light);
 }
 
+.theme-button {
+    cursor: pointer;
+    margin-left: auto;
+}
+
 /* main */
 main {
     min-height: 90vh;
@@ -128,11 +136,85 @@ main section h3 {
     gap: 10px;
 }
 
-.category .icon {
+.icon {
     background: var(--red);
     width: 30px;
     height: 30px;
 }
+
+.id12 {
+    background: green;
+}
+
+.id14 {
+    background: rgb(0, 107, 128);
+}
+
+.id16 {
+    background: yellow;
+}
+
+.id18 {
+    background: rgb(128, 0, 53);
+}
+
+.id27 {
+    background: rgb(100, 42, 61);
+}
+
+
+.id28 {
+    background: orange;
+}
+
+.id35 {
+    background: lawngreen;
+}
+
+.id36 {
+    background: rgb(69, 51, 60);
+}
+
+.id37 {
+    background: rgb(90, 76, 47);
+}
+
+.id53 {
+    background: rgb(95, 95, 95);
+}
+
+.id99 {
+    background: rgb(35, 91, 213);
+}
+.id9648 {
+    background: gray;
+}
+
+.id878 {
+    background: rgb(88, 63, 145);
+}
+
+.id10770 {
+    background: rgb(19, 69, 130);
+}
+
+.id10402 {
+    background: rgb(19, 130, 130);
+}
+
+.id10749 {
+    background: rgb(229, 48, 48);
+}
+
+.id10751 {
+    background: rgb(60, 58, 105);
+}
+
+.id10752 {
+    background: rgb(28, 40, 63);
+}
+
+
 
 
 /* Footer */
