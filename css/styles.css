@@ -45,7 +45,9 @@ body {
 }
 
 /* swiper */
-
+.mySwiper {
+    max-width: 1200px;
+}
 .swiper-img {
     height: 500px;
     width: 100%;
@@ -112,8 +114,28 @@ main section h3 {
     margin: 1rem 0;
 }
 
-/* Footer */
+/* Categories */
+.categories-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
 
+.category {
+    width: 160px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category .icon {
+    background: var(--red);
+    width: 30px;
+    height: 30px;
+}
+
+
+/* Footer */
 footer {
     display: flex;
     align-items: center;

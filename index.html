@@ -21,7 +21,7 @@
     </header>
     <main>
         <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
+            <div class="swiper-wrapper" id="movies-container">
               <div class="swiper-slide">
                 <img 
                     class="swiper-img"
@@ -43,16 +43,22 @@
             </div>
             <div class="swiper-pagination"></div>
         </div> 
-        <section class="most-famous">
+        <!-- <section class="most-famous">
             <div class="container">
                 <h3>Most Famous now</h3>
             </div>
-        </section>
-        <!-- <section class="most-watched">
-            <div class="container">
-                <h3>Most watched</h3>
-            </div>
         </section> -->
+        <section class="categories-section">
+            <div class="container">
+                <h3>Categories</h3>
+                <div class="categories-container" id="categories-container">
+                    <div class="category">
+                        <div class="icon"></div>
+                        <h4>Name</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     <footer class="container">
         All rights reserved
