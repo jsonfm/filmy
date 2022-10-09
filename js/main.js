@@ -38,8 +38,8 @@ const renderMovies = (movies) => {
 const renderCategory = (category) => {
     const html = `
     <div class="category">
-        <div class="icon id${category.id}"></div>
-        <h4>${category.name}</h4>
+        <div class="category-color id${category.id}"></div>
+        <h4 class="category-name">${category.name}</h4>
     </div>
     `
     return html;
