@@ -14,6 +14,9 @@ function navigator() {
 }
 
 function homePage(){
+    $("movies-section").classList.remove("unvisible");
+    $("header").classList.remove("unvisible");
+    $("categories-container").classList.remove("unvisible");
     console.log('home!');
 }
 
@@ -26,7 +29,11 @@ function trendsPage(){
 }
 
 function categoryPage(){
-    console.log('category!')
+    const categoryId = window.location.hash.replace("#category=", '');
+    $("movies-section").classList.add("unvisible");
+    $("header").classList.add("unvisible");
+    $("categories-container").classList.add("unvisible");
+    getMoviesByCategory(categoryId)
 }
 function movieDetail() {
     console.log('movie!')

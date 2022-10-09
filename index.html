@@ -15,17 +15,22 @@
 </head>
 <body>
     <div class="loading-spinner" id="loading-spinner"></div>
-    <header class="container">
-        <a class="logo">FIL<span>MY</span></a>
+    <header class="container" id="header">
+        <a class="logo" href="#home">FIL<span>MY</span></a>
         <nav>
             <a>Movies</a>
         </nav>
 
         <div class="theme-button nav-button" id="theme-button"><i class="gg-edit-highlight"></i></div>
-        <div class="nav-button"><i class="gg-search"></i></div>
+        <div class="nav-button" id="search-button"><i class="gg-search"></i></div>
     </header>
     <main>
-        <div class="swiper mySwiper">
+        <div class="search-container" id="search-container">
+            <div class="search-box">
+                <input class="search-input" type="text" placeholder="Matrix, 007..."/>
+            </div>
+        </div>
+        <div class="swiper mySwiper" id="movies-section">
             <div class="swiper-wrapper" id="movies-container">
               <div class="swiper-slide">
                 <img 
