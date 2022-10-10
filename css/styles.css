@@ -171,6 +171,9 @@ input {
     background:rgba(0, 0, 0, .05);
     position: fixed;
     width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    /* margin: 0 auto; */
 }
 
 .back-button-container {
