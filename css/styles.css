@@ -339,6 +339,19 @@ main section h3 {
     justify-content: center;
 }
 
+.movie-grid-element {
+    cursor: pointer;
+}
+
+.movie-grid-element:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 10px var(--secondary);
+}
+
+.movie-grid-element .movie-poster {
+    height: 100%;
+}
+
 /* movie detail */
 .movie-detail {
     color: white;

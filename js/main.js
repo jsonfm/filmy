@@ -73,8 +73,9 @@ const renderMoviesGrid = (movies) => {
     let html = ``;
     movies.map((movie) => {
         html += `
-        <div onclick="navigateTo('#movie=${movie.id}')">
-            <img 
+        <div class="movie-grid-element" onclick="navigateTo('#movie=${movie.id}')">
+            <img
+                class="movie-poster" 
                 src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
             />
         </div>
