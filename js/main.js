@@ -88,12 +88,12 @@ const renderMovieDetail = async(movie) => {
     const { genres } = movie;
 
     const response = await fetch(`${API_URL}/movie/${movie.id}/similar?api_key=${API_KEY}`).then(res => res.json());
-    // console.log("similar: ", similar);
     const { results: similar } = response;
+    
     let similarGrid = ``;
     similar.map((movie) => {
         similarGrid += `
-        <div>
+        <div class="similar-movie" onclick="navigateTo('#movie=${movie.id}')">
             <img
                 src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
             />
