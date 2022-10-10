@@ -81,6 +81,7 @@ input {
     height: 500px;
     width: 100%;
     object-fit: cover;
+    cursor: pointer;
 }
 
 /* Spinner */
@@ -171,6 +172,7 @@ input {
     align-items: center;
     gap: 10px;
     cursor: pointer;
+    z-index: 200;
 }
 
 
@@ -280,7 +282,6 @@ main section h3 {
     background: rgb(100, 42, 61);
 }
 
-
 .id28 {
     background: orange;
 }
@@ -337,6 +338,8 @@ main section h3 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .movie-grid-element {
@@ -355,37 +358,46 @@ main section h3 {
 /* movie detail */
 .movie-detail {
     color: white;
+    overflow-y: scroll;
 }
+
 .movie-bg {
     height: 100vh;
     width: 100%;
-    /* max-width: 1200px; */
-    object-fit: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    background-repeat: no-repeat !important;
+    background-position: top center !important;
+    /* background-size: cover; */
     position: fixed;
     top: 0;
     z-index: 10;
 }
 
 .movie-card {
-    height: 70vh;
+    min-height: 70vh;
     width: 100%;
+    max-width: 1200px;
     z-index: 20;
     position: absolute;
     backdrop-filter: blur(10px);
-    padding: 1.5rem 2rem;
-    bottom: -10rem;
+    padding: 3.5rem 2rem;
+    bottom: -35rem;
+    left: 50%;
+    transform: translateX(-50%);
     background:rgba(0, 0, 0, .2);
 }
+
 .movie-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 1rem;
 }
 
 .movie-description {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+}
+
+.votes {
+    display: flex;
+    margin-bottom: 2rem;
 }
 
 .genres {
@@ -407,6 +419,20 @@ main section h3 {
 .genre-name {
     display: flex;
     align-items: center;
+}
+
+.similar-grid {
+    display: flex;
+    overflow-x: auto;
+    margin-top: 2rem;
+}
+
+.similar-title {
+    margin-top: 3rem;
+    /* margin-bottom: 1rem; */
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    text-align: end;
 }
 
 /* Footer */

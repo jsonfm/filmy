@@ -84,8 +84,23 @@ const renderMoviesGrid = (movies) => {
     moviesGrid.innerHTML = html;
 }
 
-const renderMovieDetail = (movie) => {
+const renderMovieDetail = async(movie) => {
     const { genres } = movie;
+
+    const response = await fetch(`${API_URL}/movie/${movie.id}/similar?api_key=${API_KEY}`).then(res => res.json());
+    // console.log("similar: ", similar);
+    const { results: similar } = response;
+    let similarGrid = ``;
+    similar.map((movie) => {
+        similarGrid += `
+        <div>
+            <img
+                src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
+            />
+        </div>
+        `
+    });
+
 
     let genresGrid = ``;
     genres.map((genre) => {
@@ -96,6 +111,8 @@ const renderMovieDetail = (movie) => {
         </div>
      `
     });
+
+
     const html = `
         <div 
             class="movie-bg"
@@ -104,8 +121,18 @@ const renderMovieDetail = (movie) => {
         <div class="movie-card">
             <h4 class="movie-title">${movie.original_title}</h4>
             <p class="movie-description">${movie.overview}</p>
+           
+            <div class="votes">
+                <p>${movie.vote_average}</p>
+            </div>
+
             <div class="genres">
                 ${genresGrid}
+            </div>
+
+            <h5 class="similar-title">Similar movies</h5>
+            <div class="similar-grid">
+                ${similarGrid}
             </div>
         </div>
     `
