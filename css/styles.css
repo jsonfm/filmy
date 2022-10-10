@@ -158,6 +158,21 @@ input {
     border-radius: 100px;
     background: transparent;
 }
+/* Back section */
+.back-section {
+    height: 5rem;
+    display: flex;
+    align-items: center;
+}
+
+.back-button-container {
+    border: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
 
 /* header */
 header {
@@ -324,7 +339,62 @@ main section h3 {
     justify-content: center;
 }
 
+/* movie detail */
+.movie-detail {
+    color: white;
+}
+.movie-bg {
+    height: 100vh;
+    width: 100%;
+    /* max-width: 1200px; */
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+}
 
+.movie-card {
+    height: 70vh;
+    width: 100%;
+    z-index: 20;
+    position: absolute;
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 2rem;
+    bottom: -10rem;
+    background:rgba(0, 0, 0, .2);
+}
+.movie-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.movie-description {
+    margin-bottom: 3rem;
+}
+
+.genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.genre {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.genre-color {
+    height: 20px;
+    width: 20px;
+}
+
+.genre-name {
+    display: flex;
+    align-items: center;
+}
 
 /* Footer */
 footer {

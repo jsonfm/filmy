@@ -18,7 +18,9 @@ const moviesContainer = document.getElementById('movies-container');
 const categoriesContainer = document.getElementById('categories-container');
 const searchContainer = document.getElementById('search-container');
 const moviesGrid = document.getElementById('movies-grid');
+const movieDetail = document.getElementById('movie-detail');
 
+const backButton = document.getElementById('back-button-container');
 const themeButton = document.getElementById('theme-button');
 const searchButton = document.getElementById('search-button');
 const scrollButton = document.getElementById('scroll-button');
@@ -30,7 +32,7 @@ const scrollToTop = () => {
 // Render functions
 const renderMovie = (movie) => {
     const html = `
-    <div class="swiper-slide">
+    <div class="swiper-slide" onclick="navigateTo('#movie=${movie.id}')" >
         <img 
             class="swiper-img"
             src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
@@ -71,7 +73,7 @@ const renderMoviesGrid = (movies) => {
     let html = ``;
     movies.map((movie) => {
         html += `
-        <div>
+        <div onclick="navigateTo('#movie=${movie.id}')">
             <img 
                 src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
             />
@@ -79,6 +81,34 @@ const renderMoviesGrid = (movies) => {
     `
     });
     moviesGrid.innerHTML = html;
+}
+
+const renderMovieDetail = (movie) => {
+    const { genres } = movie;
+
+    let genresGrid = ``;
+    genres.map((genre) => {
+        genresGrid += `
+        <div class="genre">
+            <div class="genre-color id${genre.id}"></div>
+            <div class="genre-name">${genre.name}</div>
+        </div>
+     `
+    });
+    const html = `
+        <div 
+            class="movie-bg"
+            style="background: url(https://image.tmdb.org/t/p/w500${movie.poster_path})"
+        ></div>
+        <div class="movie-card">
+            <h4 class="movie-title">${movie.original_title}</h4>
+            <p class="movie-description">${movie.overview}</p>
+            <div class="genres">
+                ${genresGrid}
+            </div>
+        </div>
+    `
+    movieDetail.innerHTML = html;
 }
 
 
@@ -102,9 +132,15 @@ const getMoviesCategories = async () => {
 const getMoviesByCategory = async(categoryId) => {
     const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}`).then(res => res.json());
     const { results: movies } = response;
-    console.log("movies: ", movies);
     renderMoviesGrid(movies);
 }
+
+const getMovie = async (id) => {
+    const movie = await fetch(`${API_URL}/movie/${id}?api_key=${API_KEY}`).then(res => res.json());
+    console.log("movie: ", movie);
+    renderMovieDetail(movie);
+}
+
 
 
 getTrendingDayMovies();
@@ -121,6 +157,10 @@ searchButton.addEventListener('click', () => {
 
 scrollButton.addEventListener('click', () => {
     scrollToTop();
+});
+
+backButton.addEventListener('click', () => {
+    window.history.back();
 })
 
 window.addEventListener('load', () => {

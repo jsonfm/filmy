@@ -6,7 +6,7 @@ function navigator() {
     }else if(location.hash.startsWith('#search=')){
         searchPage()
     }else if(location.hash.startsWith('#movie=')){
-        movieDetail();
+        movieDetailPage();
     }else if(location.hash.startsWith('#category=')){
         categoryPage();
     }else {
@@ -19,6 +19,8 @@ function homePage(){
     $("header").classList.remove("unvisible");
     $("categories-section").classList.remove("unvisible");
     $("movies-grid").classList.add("unvisible");
+    $("movie-detail").classList.add("unvisible");
+    $("back-section").classList.add("unvisible");
     moviesGrid.innerHTML = '';
     console.log('home!');
 }
@@ -37,11 +39,20 @@ function categoryPage(){
     $("header").classList.add("unvisible");
     $("categories-section").classList.add("unvisible");
     $("movies-grid").classList.remove("unvisible");
+    $("movie-detail").classList.add("unvisible");
     searchContainer.classList.remove("active");
+    $("back-section").classList.remove("unvisible");
     getMoviesByCategory(categoryId)
 }
-function movieDetail() {
-    console.log('movie!')
+function movieDetailPage() {
+    $("movies-section").classList.add("unvisible");
+    $("header").classList.add("unvisible");
+    $("categories-section").classList.add("unvisible"); 
+    $("movies-grid").classList.add("unvisible");
+    $("back-section").classList.remove("unvisible");
+    $("movie-detail").classList.remove("unvisible");
+    const movieId = window.location.hash.replace("#movie=", '');
+    getMovie(movieId);
 }
 
 window.addEventListener('DOMContentLoaded', navigator, false);
