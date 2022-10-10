@@ -1,5 +1,6 @@
 function navigator() {
     console.log('location', { location });
+    scrollToTop();
     if(location.hash.startsWith('#trends')){
         trendsPage();
     }else if(location.hash.startsWith('#search=')){
@@ -18,6 +19,7 @@ function homePage(){
     $("header").classList.remove("unvisible");
     $("categories-section").classList.remove("unvisible");
     $("movies-grid").classList.add("unvisible");
+    moviesGrid.innerHTML = '';
     console.log('home!');
 }
 

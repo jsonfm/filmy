@@ -63,6 +63,9 @@ input {
     visibility: hidden;
     height: 0 !important;
     min-height: 0;
+    transform: scale(0);
+    transition: .4s;
+    /* perspective: 1000px; */
 }
 
 .visible {
