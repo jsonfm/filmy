@@ -14,6 +14,7 @@
     <link href='https://css.gg/chevron-up-o.css' rel='stylesheet'>
     <link href='https://css.gg/arrow-left.css' rel='stylesheet'>
     <link href='https://css.gg/home.css' rel='stylesheet'>
+    <link href='https://css.gg/search.css' rel='stylesheet'>
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
@@ -30,9 +31,10 @@
     </header>
     <main id="main">
         <div class="search-container" id="search-container">
-            <div class="search-box">
-                <input class="search-input" type="text" placeholder="Matrix, 007..."/>
-            </div>
+            <form class="search-box" id="search-form">
+                <input id="search-input" class="search-input" type="text" placeholder="Matrix, 007..."/>
+                <label for="search-input"><i class="gg-search"></i></label>
+            </form>
         </div>
         <div class="container back-section" id="back-section">
             <div class="back-button-container" id="back-button-container">
@@ -80,6 +82,7 @@
             </div>
         </section>
         <section class="movie-detail" id="movie-detail"></section>
+        <div class="container info-section" id="info-section"></div>
         <section id="movies-grid" class="movies-grid unvisible"></section>
     </main>
     <footer class="container">

@@ -19,11 +19,15 @@ const categoriesContainer = document.getElementById('categories-container');
 const searchContainer = document.getElementById('search-container');
 const moviesGrid = document.getElementById('movies-grid');
 const movieDetail = document.getElementById('movie-detail');
+const infoSection = document.getElementById('info-section');
 
 const backButton = document.getElementById('back-button-container');
 const themeButton = document.getElementById('theme-button');
 const searchButton = document.getElementById('search-button');
 const scrollButton = document.getElementById('scroll-button');
+
+const searchInput = document.getElementById('search-input');
+const searchForm = document.getElementById('search-form');
 
 const scrollToTop = () => {
     window.scrollTo({ top: 0 , behavior: 'smooth'});
@@ -89,7 +93,7 @@ const renderMovieDetail = async(movie) => {
 
     const response = await fetch(`${API_URL}/movie/${movie.id}/similar?api_key=${API_KEY}`).then(res => res.json());
     const { results: similar } = response;
-    
+
     let similarGrid = ``;
     similar.map((movie) => {
         similarGrid += `
@@ -160,6 +164,11 @@ const getMoviesCategories = async () => {
 const getMoviesByCategory = async(categoryId) => {
     const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}`).then(res => res.json());
     const { results: movies } = response;
+
+    infoSection.innerHTML = `
+        <p>Filtering</p>
+    `
+
     renderMoviesGrid(movies);
 }
 
@@ -169,6 +178,14 @@ const getMovie = async (id) => {
     renderMovieDetail(movie);
 }
 
+const searchMovie = async (query) => {
+    const response = await fetch(`${API_URL}/search/movie?api_key=${API_KEY}&query=${query}`).then(res => res.json());
+    const { results:movies } = response;
+    infoSection.innerHTML = `
+        <p>Results of ${query}</p>
+    `
+    renderMoviesGrid(movies);
+}
 
 
 getTrendingDayMovies();
@@ -189,6 +206,13 @@ scrollButton.addEventListener('click', () => {
 
 backButton.addEventListener('click', () => {
     window.history.back();
+});
+
+
+searchForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const query = searchInput.value;
+    navigateTo(`#search=${query}`);
 })
 
 window.addEventListener('load', () => {

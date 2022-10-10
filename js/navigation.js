@@ -21,12 +21,23 @@ function homePage(){
     $("movies-grid").classList.add("unvisible");
     $("movie-detail").classList.add("unvisible");
     $("back-section").classList.add("unvisible");
+    $("info-section").classList.add("unvisible");
     moviesGrid.innerHTML = '';
     console.log('home!');
 }
 
 function searchPage(){
-    console.log('search!');
+    searchContainer.classList.remove('active');
+    $("header").classList.remove("unvisible");
+    $("movies-section").classList.add("unvisible");
+    $("categories-section").classList.add("unvisible");
+    $("movie-detail").classList.add("unvisible");
+    $("back-section").classList.add("unvisible");
+    $("movies-grid").classList.remove("unvisible");
+    $("info-section").classList.remove("unvisible");
+    const query = window.location.hash.replace("#search=", '');
+    searchMovie(query);
+    console.log('search: ', query);
 }
 
 function trendsPage(){
@@ -40,10 +51,12 @@ function categoryPage(){
     $("categories-section").classList.add("unvisible");
     $("movies-grid").classList.remove("unvisible");
     $("movie-detail").classList.add("unvisible");
-    searchContainer.classList.remove("active");
+    $("info-section").classList.remove("unvisible");
     $("back-section").classList.remove("unvisible");
+    searchContainer.classList.remove("active");
     getMoviesByCategory(categoryId)
 }
+
 function movieDetailPage() {
     $("movies-section").classList.add("unvisible");
     $("header").classList.add("unvisible");
@@ -51,6 +64,7 @@ function movieDetailPage() {
     $("movies-grid").classList.add("unvisible");
     $("back-section").classList.remove("unvisible");
     $("movie-detail").classList.remove("unvisible");
+    $("info-section").classList.add("unvisible");
     const movieId = window.location.hash.replace("#movie=", '');
     getMovie(movieId);
 }
