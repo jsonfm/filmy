@@ -121,7 +121,7 @@ input {
     justify-content: center;
     transition: .4s ease;
 
-    background:rgba(0, 0, 0, .2);
+    background: var(--primary-with-alpha);
 }
 
 .search-container.active {
