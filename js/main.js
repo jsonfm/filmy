@@ -21,6 +21,11 @@ const moviesGrid = document.getElementById('movies-grid');
 
 const themeButton = document.getElementById('theme-button');
 const searchButton = document.getElementById('search-button');
+const scrollButton = document.getElementById('scroll-button');
+
+const scrollToTop = () => {
+    window.scrollTo({ top: 0 , behavior: 'smooth'});
+}
 
 // Render functions
 const renderMovie = (movie) => {
@@ -112,6 +117,10 @@ themeButton.addEventListener('click', () => {
 
 searchButton.addEventListener('click', () => {
     searchContainer.classList.toggle('active');
+});
+
+scrollButton.addEventListener('click', () => {
+    scrollToTop();
 })
 
 window.addEventListener('load', () => {
