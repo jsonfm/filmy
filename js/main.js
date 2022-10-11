@@ -8,8 +8,19 @@ const API_URL = "https://api.themoviedb.org/3";
 // GUI
 const swiper = new Swiper(".mySwiper", {
     pagination: {
-      el: ".swiper-pagination",
+      el: ".swiper-scrollbar",
     },
+    breakpoints: {
+        640: {
+            slidesPerView: 2,
+            // spaceBetween: 20,
+        },
+        1024: {
+            slidesPerView: 3,
+            // spaceBetween: 20,
+        },
+    },
+    freeMode: true,
     observer: true
 });
 
@@ -33,18 +44,38 @@ const scrollToTop = () => {
     window.scrollTo({ top: 0 , behavior: 'smooth'});
 }
 
+
+// Observer
+const lazyloader = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        console.log("entry: ", entry.target.getAttribute("data-src"));
+        if(entry.isIntersecting){
+            const url = entry.target.getAttribute("data-src");
+            console.log("url: ", url);
+            entry.target.setAttribute('src', url);
+        }
+    })
+})
+
+
+
 // Render functions
 const renderMovie = (movie) => {
     const html = `
     <div class="swiper-slide" onclick="navigateTo('#movie=${movie.id}')" >
         <img 
-            class="swiper-img"
-            src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
+            class="swiper-img img-lazy"
+            data-src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
         />
     </div>
     `
     return html;
 }
+
+const renderLazyImages = (images) => {
+    console.log("images: ", images);
+}
+
 
 const renderMovies = (movies) => {
     let html = ``;
@@ -99,6 +130,7 @@ const renderMovieDetail = async(movie) => {
         similarGrid += `
         <div class="similar-movie" onclick="navigateTo('#movie=${movie.id}')">
             <img
+                class="img-lazy"
                 src="https://image.tmdb.org/t/p/w300${movie.poster_path}"
             />
         </div>
@@ -143,13 +175,17 @@ const renderMovieDetail = async(movie) => {
     movieDetail.innerHTML = html;
 }
 
-
-
 const getTrendingDayMovies = async () => {
     const response = await fetch(`${API_URL}/trending/all/day?api_key=${API_KEY}`).then(res => res.json());
     const { results: movies } = response;
     const html = renderMovies(movies);
     moviesContainer.innerHTML = html;
+
+    const lazyImgs = Array.from(document.querySelectorAll('.img-lazy'));
+    lazyImgs.map((img) => {
+        lazyloader.observe(img);
+    })
+
 }
 
 const getMoviesCategories = async () => {
@@ -188,9 +224,6 @@ const searchMovie = async (query) => {
 }
 
 
-getTrendingDayMovies();
-getMoviesCategories();
-
 
 themeButton.addEventListener('click', () => {
     document.body.classList.toggle('light-theme');
@@ -220,3 +253,8 @@ window.addEventListener('load', () => {
         loadingSpinner.style.display = 'none';
     }, 1500);
 });
+
+
+
+getTrendingDayMovies();
+getMoviesCategories();
