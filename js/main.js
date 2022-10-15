@@ -48,10 +48,10 @@ const scrollToTop = () => {
 // Observer
 const lazyloader = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-        console.log("entry: ", entry.target.getAttribute("data-src"));
+        // console.log("entry: ", entry.target.getAttribute("data-src"));
         if(entry.isIntersecting){
             const url = entry.target.getAttribute("data-src");
-            console.log("url: ", url);
+            // console.log("url: ", url);
             entry.target.setAttribute('src', url);
         }
     })
@@ -119,14 +119,10 @@ const renderMoviesGrid = (movies) => {
     moviesGrid.innerHTML = html;
 }
 
-const renderMovieDetail = async(movie) => {
-    const { genres } = movie;
 
-    const response = await fetch(`${API_URL}/movie/${movie.id}/similar?api_key=${API_KEY}`).then(res => res.json());
-    const { results: similar } = response;
-
+const renderSimilarMovies = (similar = []) => {
     let similarGrid = ``;
-    similar.map((movie) => {
+    similar.forEach((movie) => {
         similarGrid += `
         <div class="similar-movie" onclick="navigateTo('#movie=${movie.id}')">
             <img
@@ -136,10 +132,12 @@ const renderMovieDetail = async(movie) => {
         </div>
         `
     });
+    return similarGrid;
+}
 
-
+const renderGenreGrid = (genres = []) => {
     let genresGrid = ``;
-    genres.map((genre) => {
+    genres.forEach((genre) => {
         genresGrid += `
         <div class="genre">
             <div class="genre-color id${genre.id}"></div>
@@ -147,7 +145,17 @@ const renderMovieDetail = async(movie) => {
         </div>
      `
     });
+    return genresGrid;
+}
 
+const renderMovieDetail = async (movie) => {
+    const { genres } = movie;
+
+    const response = await fetch(`${API_URL}/movie/${movie.id}/similar?api_key=${API_KEY}`).then(res => res.json());
+    const { results: similar } = response;
+
+    const similarGrid = renderSimilarMovies(similar);
+    const genresGrid = renderGenreGrid(genres);
 
     const html = `
         <div 
@@ -182,7 +190,7 @@ const getTrendingDayMovies = async () => {
     moviesContainer.innerHTML = html;
 
     const lazyImgs = Array.from(document.querySelectorAll('.img-lazy'));
-    lazyImgs.map((img) => {
+    lazyImgs.forEach((img) => {
         lazyloader.observe(img);
     })
 
@@ -191,7 +199,6 @@ const getTrendingDayMovies = async () => {
 const getMoviesCategories = async () => {
     const response = await fetch(`${API_URL}/genre/movie/list?api_key=${API_KEY}`).then(res => res.json());
     const { genres: categories } = response;
-    console.log("categories: ", categories);
     const html = renderCategories(categories);
     categoriesContainer.innerHTML = html;
 }
@@ -200,9 +207,9 @@ const getMoviesCategories = async () => {
 const getMoviesByCategory = async(categoryId) => {
     const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}`).then(res => res.json());
     const { results: movies } = response;
-
+    console.log("response: ", response);
     infoSection.innerHTML = `
-        <p>Filtering</p>
+        <p class="mt-5">Filtering</p>
     `
 
     renderMoviesGrid(movies);
@@ -210,7 +217,7 @@ const getMoviesByCategory = async(categoryId) => {
 
 const getMovie = async (id) => {
     const movie = await fetch(`${API_URL}/movie/${id}?api_key=${API_KEY}`).then(res => res.json());
-    console.log("movie: ", movie);
+    // console.log("movie: ", movie);
     renderMovieDetail(movie);
 }
 
@@ -222,8 +229,6 @@ const searchMovie = async (query) => {
     `
     renderMoviesGrid(movies);
 }
-
-
 
 themeButton.addEventListener('click', () => {
     document.body.classList.toggle('light-theme');
@@ -240,7 +245,6 @@ scrollButton.addEventListener('click', () => {
 backButton.addEventListener('click', () => {
     window.history.back();
 });
-
 
 searchForm.addEventListener('submit', async (e) => {
     e.preventDefault();
