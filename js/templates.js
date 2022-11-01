@@ -151,9 +151,17 @@ const renderGenreGrid = (genres = []) => {
  */
 const renderMovieDetail = async (movie = {}) => {
 
-    const { genres } = movie;
+    const { 
+        id,
+        genres,
+        original_title,
+        poster_path,
+        overview,
+        vote_average,
+        runtime,
+    } = movie;
 
-    const response = await fetch(`${API_URL}/movie/${movie.id}/similar?api_key=${API_KEY}`).then(res => res.json());
+    const response = await fetch(`${API_URL}/movie/${id}/similar?api_key=${API_KEY}`).then(res => res.json());
     const { results: similar } = response;
 
     const similarGrid = renderSimilarMovies(similar);
@@ -162,20 +170,20 @@ const renderMovieDetail = async (movie = {}) => {
     const html = `
         <div 
             class="movie-bg"
-            style="background: url(https://image.tmdb.org/t/p/w500${movie.poster_path})"
+            style="background: url(https://image.tmdb.org/t/p/w500${poster_path})"
         ></div>
         <div class="movie-card">
-            <h4 class="movie-title">${movie.original_title}</h4>
-            <p class="movie-description">${movie.overview}</p>
+            <h4 class="movie-title">${original_title}</h4>
+            <p class="movie-description">${overview}</p>
            
             <div class="votes">
                 <p><b>Votes:</b> </p>
-                <p>${movie.vote_average} / 10</p>
+                <p>${vote_average} / 10</p>
             </div>
 
             <div class="runtime">
                 <i class="gg-stopwatch"></i>
-                <p>${movie.runtime} min</p>
+                <p>${runtime} min</p>
             </div>
 
             <div class="genres">
