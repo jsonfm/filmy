@@ -81,16 +81,16 @@ const getMoviesCategories = async () => {
 }
 
 
-const getMoviesByCategory = async({categoryId, categoryName='', page=1}) => {
+const getMoviesByCategory = async ({categoryId, categoryName='', page=1}) => {
 
     const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}&page=${page}`).then(res => res.json());
-    const { results: movies } = response;
-
+    const { results: movies, total_pages } = response;
+    // console.log("results by cat: ", response);
     infoSection.innerHTML = `
         <p class="filtering-title mt-5">Showing <b>${categoryName}</b> movies</p>
     `
 
-    renderMoviesGrid({ movies, page, categoryId, categoryName });
+    renderMoviesGrid({ movies, page, categoryId, categoryName, total_pages });
 }
 
 const getMovie = async (id) => {
@@ -107,15 +107,25 @@ const searchMovie = async (query) => {
     renderMoviesGrid({ movies });
 }
 
+let waiting = false;
 
-const scrollingMoviesByCategory = async () => {
+const scrollingMoviesByCategory = async () => { 
+    const { page, total_page }= categoriesHistory;
+    const limitReached = page >= total_page;
+
     if(scrollBottomReached()){
-        // console.log('bottom reached: ', categoriesHistory);
-        await sleep(400);
+
+        if(waiting) {
+            return
+        }
+        console.log("histor", categoriesHistory);
+        waiting = true;
         await getMoviesByCategory({
             ...categoriesHistory,
-            page: categoriesHistory.page + 1,
+            page: page + 1,
         });
+        await sleep(600);
+        waiting = false;
     }
 }
 

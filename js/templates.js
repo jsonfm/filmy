@@ -83,7 +83,7 @@ let categoriesHistory = {};
  * @param {string} param0.categoryName
  * @param {number} param0.page
  */
-const renderMoviesGrid = ({ movies, categoryId, categoryName, page=1 } = {}) => {
+const renderMoviesGrid = ({ movies, categoryId, categoryName, page=1, total_pages=10 } = {}) => {
     let html = ``;
     movies.map((movie) => {
         html += `
@@ -106,8 +106,9 @@ const renderMoviesGrid = ({ movies, categoryId, categoryName, page=1 } = {}) => 
         categoryId,
         categoryName,
         page,
+        total_pages,
     };
-    console.log("categories ---> ", categoriesHistory)
+
     // moviesGrid.innerHTML += `
     //     <button onclick="getMoviesByCategory(${categoryId}, '${categoryName}' , ${page + 1})">Load more</button>
     // `
