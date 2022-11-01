@@ -111,7 +111,7 @@ const throttledGetMoviesByCategory = throttled(getMoviesByCategory, 250);
 
 const scrollingMoviesByCategory = async () => { 
     const { page } = categoriesHistory;
-    
+
     if(scrollBottomReached()){
         await throttledGetMoviesByCategory({...categoriesHistory, page: page + 1 })
     }
