@@ -109,7 +109,7 @@ const scrollBottomReached = () => {
     return (scrollTop + clientHeight) >= (scrollHeight - 15);
 }
 
-const renderMoviesGrid = (movies, {categoryId, page=1 } = {}) => {
+const renderMoviesGrid = (movies, {categoryId, categoryName, page=1 } = {}) => {
     let html = ``;
     movies.map((movie) => {
         html += `
@@ -129,7 +129,7 @@ const renderMoviesGrid = (movies, {categoryId, page=1 } = {}) => {
 
 
     moviesGrid.innerHTML += `
-        <button onclick="getMoviesByCategory(${categoryId}, ${page + 1})">Load more</button>
+        <button onclick="getMoviesByCategory(${categoryId}, ${categoryName} ,${page + 1})">Load more</button>
     `
 }
 
@@ -233,7 +233,7 @@ const getMoviesByCategory = async(categoryId, categoryName='', page=1) => {
         <p class="filtering-title mt-5">Showing <b>${categoryName}</b> movies</p>
     `
 
-    renderMoviesGrid(movies, { page, categoryId });
+    renderMoviesGrid(movies, { page, categoryId, categoryName });
 }
 
 const getMovie = async (id) => {
