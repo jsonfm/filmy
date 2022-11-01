@@ -43,10 +43,6 @@ const searchForm = document.getElementById('search-form');
 
 let infintyScroll = null;
 
-const scrollToTop = () => {
-    window.scrollTo({ top: 0 , behavior: 'smooth'});
-}
-
 
 // Observer
 const lazyloader = new IntersectionObserver((entries) => {
@@ -138,10 +134,9 @@ searchForm.addEventListener('submit', async (e) => {
     navigateTo(`#search=${query}`);
 })
 
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        loadingSpinner.style.display = 'none';
-    }, 1500);
+window.addEventListener('load', async () => {
+    await sleep(1500);
+    loadingSpinner.style.display = 'none';
 });
 
 
