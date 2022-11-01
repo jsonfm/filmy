@@ -107,13 +107,13 @@ const searchMovie = async (query) => {
     renderMoviesGrid({ movies });
 }
 
-const throttledGetMoviesByCategory = throttled(getMoviesByCategory, 250);
+const throttleGetMoviesByCategory = throttle(getMoviesByCategory, 250);
 
 const scrollingMoviesByCategory = async () => { 
     const { page } = categoriesHistory;
 
     if(scrollBottomReached()){
-        await throttledGetMoviesByCategory({...categoriesHistory, page: page + 1 })
+        await throttleGetMoviesByCategory({...categoriesHistory, page: page + 1 })
     }
 }
 

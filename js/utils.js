@@ -3,7 +3,7 @@
  * @param {number} ms - delay time on milliseconds.
  * @returns 
  */
-const sleep = async (ms=1000) => {
+const sleep = async (ms = 1000) => {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
@@ -23,7 +23,14 @@ const scrollBottomReached = () => {
     return (scrollTop + clientHeight) >= (scrollHeight - 15);
 }
 
-const throttled = (cb, delay = 500) => {
+/**
+ * Applies Throttle pattern to a callback
+ * Reference: https://coffeebytes.dev/debounce-y-throttle-en-javascript/
+ * @param {*} cb 
+ * @param {*} delay 
+ * @returns 
+ */
+const throttle = (cb, delay = 500) => {
     let waiting = false;
     
     return async (...args) => {
@@ -31,8 +38,7 @@ const throttled = (cb, delay = 500) => {
         if (waiting) return;
 
         waiting = true;
-        // console.log("--> Start: ", waiting);
-
+ 
         try {
             await cb(...args);
         }catch(err){
@@ -41,8 +47,6 @@ const throttled = (cb, delay = 500) => {
 
         await sleep(delay)
     
-
         waiting = false;
-        // console.log("--> End: ", waiting);
     }
 }
