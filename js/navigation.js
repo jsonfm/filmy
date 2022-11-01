@@ -1,6 +1,7 @@
 function navigator() {
     console.log('location', { location });
     scrollToTop();
+
     if(location.hash.startsWith('#trends')){
         trendsPage();
     }else if(location.hash.startsWith('#search=')){
@@ -15,6 +16,7 @@ function navigator() {
 }
 
 function homePage(){
+    $("footer").classList.remove("unvisible");
     $("movies-section").classList.remove("unvisible");
     $("header").classList.remove("unvisible");
     $("categories-section").classList.remove("unvisible");
@@ -30,6 +32,7 @@ function homePage(){
 
 function searchPage(){
     searchContainer.classList.remove('active');
+    $("footer").classList.add("unvisible");
     $("header").classList.remove("unvisible");
     $("movies-section").classList.add("unvisible");
     $("categories-section").classList.add("unvisible");
@@ -47,7 +50,10 @@ function trendsPage(){
 }
 
 function categoryPage(){
-    const categoryId = window.location.hash.replace("#category=", '');
+    const categoryParams = window.location.hash.replace("#category=", '').split("-");
+    const categoryId = categoryParams[0];
+    const categoryName = categoryParams[1];
+    $("footer").classList.add("unvisible");
     $("movies-section").classList.add("unvisible");
     $("header").classList.add("unvisible");
     $("categories-section").classList.add("unvisible");
@@ -58,10 +64,11 @@ function categoryPage(){
     $("home-button-container").classList.remove("unvisible");
     $("back-section").classList.remove("unvisible");
     searchContainer.classList.remove("active");
-    getMoviesByCategory(categoryId)
+    getMoviesByCategory(categoryId, categoryName);
 }
 
 function movieDetailPage() {
+    $("footer").classList.add("unvisible");
     $("movies-section").classList.add("unvisible");
     $("header").classList.add("unvisible");
     $("categories-section").classList.add("unvisible"); 

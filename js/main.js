@@ -40,24 +40,23 @@ const scrollButton = document.getElementById('scroll-button');
 const searchInput = document.getElementById('search-input');
 const searchForm = document.getElementById('search-form');
 
+
+let infintyScroll = null;
+
+
 const scrollToTop = () => {
     window.scrollTo({ top: 0 , behavior: 'smooth'});
 }
 
-
 // Observer
 const lazyloader = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-        // console.log("entry: ", entry.target.getAttribute("data-src"));
         if(entry.isIntersecting){
             const url = entry.target.getAttribute("data-src");
-            // console.log("url: ", url);
             entry.target.setAttribute('src', url);
         }
     })
-})
-
-
+});
 
 // Render functions
 const renderMovie = (movie) => {
@@ -89,8 +88,9 @@ const navigateTo = (path) => {
 
 
 const renderCategory = (category) => {
+
     const html = `
-    <div class="category" onclick="navigateTo('#category=${category.id}')">
+    <div class="category" onclick="navigateTo('#category=${category.id}-${category.name}')">
         <div class="category-color id${category.id}"></div>
         <h4 class="category-name">${category.name}</h4>
     </div>
@@ -104,7 +104,12 @@ const renderCategories = (categories) => {
     return html;
 }
 
-const renderMoviesGrid = (movies) => {
+const scrollBottomReached = () => {
+    const {scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    return (scrollTop + clientHeight) >= (scrollHeight - 15);
+}
+
+const renderMoviesGrid = (movies, {categoryId, page=1 } = {}) => {
     let html = ``;
     movies.map((movie) => {
         html += `
@@ -116,7 +121,16 @@ const renderMoviesGrid = (movies) => {
         </div>
     `
     });
-    moviesGrid.innerHTML = html;
+    if(page == 1){
+        moviesGrid.innerHTML = html;
+    }else {
+        moviesGrid.innerHTML += html;
+    }
+
+
+    moviesGrid.innerHTML += `
+        <button onclick="getMoviesByCategory(${categoryId}, ${page + 1})">Load more</button>
+    `
 }
 
 
@@ -149,6 +163,7 @@ const renderGenreGrid = (genres = []) => {
 }
 
 const renderMovieDetail = async (movie) => {
+    console.log("movie: ", movie)
     const { genres } = movie;
 
     const response = await fetch(`${API_URL}/movie/${movie.id}/similar?api_key=${API_KEY}`).then(res => res.json());
@@ -167,7 +182,13 @@ const renderMovieDetail = async (movie) => {
             <p class="movie-description">${movie.overview}</p>
            
             <div class="votes">
-                <p>${movie.vote_average}</p>
+                <p><b>Votes:</b> </p>
+                <p>${movie.vote_average} / 10</p>
+            </div>
+
+            <div class="runtime">
+                <i class="gg-stopwatch"></i>
+                <p>${movie.runtime} min</p>
             </div>
 
             <div class="genres">
@@ -204,15 +225,15 @@ const getMoviesCategories = async () => {
 }
 
 
-const getMoviesByCategory = async(categoryId) => {
-    const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}`).then(res => res.json());
+const getMoviesByCategory = async(categoryId, categoryName='', page=1) => {
+    const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}&page=${page}`).then(res => res.json());
     const { results: movies } = response;
-    console.log("response: ", response);
+
     infoSection.innerHTML = `
-        <p class="mt-5">Filtering</p>
+        <p class="filtering-title mt-5">Showing <b>${categoryName}</b> movies</p>
     `
 
-    renderMoviesGrid(movies);
+    renderMoviesGrid(movies, { page, categoryId });
 }
 
 const getMovie = async (id) => {
@@ -257,7 +278,6 @@ window.addEventListener('load', () => {
         loadingSpinner.style.display = 'none';
     }, 1500);
 });
-
 
 
 getTrendingDayMovies();

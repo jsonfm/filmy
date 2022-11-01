@@ -193,10 +193,10 @@ input {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* backdrop-filter: blur(1px); */
+    backdrop-filter: blur(2px);
     z-index: 200;
     /* border: 2px solid; */
-    background:rgba(0, 0, 0, .05);
+    /* background:rgba(0, 0, 0, .5); */
     position: fixed;
     width: 100%;
     left: 50%;
@@ -444,7 +444,14 @@ main section h3 {
 
 .votes {
     display: flex;
+    gap: 12px;
     margin-bottom: 2rem;
+}
+
+.runtime {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
 }
 
 .genres {
@@ -467,6 +474,11 @@ main section h3 {
     display: flex;
     align-items: center;
 }
+
+.filtering-title {
+    font-size: 1.45rem;
+}
+
 
 .similar-grid {
     display: flex;
@@ -493,7 +505,6 @@ main section h3 {
     cursor: pointer;
     transform: scale(1.2);
     width: 400px;
-    /* border: 2px solid; */
 }
 
 .similar-movie img {
