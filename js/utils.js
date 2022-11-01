@@ -22,3 +22,27 @@ const scrollBottomReached = () => {
     const {scrollTop, scrollHeight, clientHeight } = document.documentElement;
     return (scrollTop + clientHeight) >= (scrollHeight - 15);
 }
+
+const throttled = (cb, delay = 500) => {
+    let waiting = false;
+    
+    return async (...args) => {
+        
+        if (waiting) return;
+
+        waiting = true;
+        // console.log("--> Start: ", waiting);
+
+        try {
+            await cb(...args);
+        }catch(err){
+            console.log("Error: ", err);
+        }
+
+        await sleep(delay)
+    
+
+        waiting = false;
+        // console.log("--> End: ", waiting);
+    }
+}

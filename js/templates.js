@@ -85,7 +85,7 @@ let categoriesHistory = {};
  */
 const renderMoviesGrid = ({ movies, categoryId, categoryName, page=1, total_pages=10 } = {}) => {
     let html = ``;
-    movies.map((movie) => {
+    movies?.map((movie) => {
         html += `
         <div class="movie-grid-element" onclick="navigateTo('#movie=${movie.id}')">
             <img

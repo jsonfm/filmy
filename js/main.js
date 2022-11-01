@@ -81,7 +81,7 @@ const getMoviesCategories = async () => {
 }
 
 
-const getMoviesByCategory = async ({categoryId, categoryName='', page=1}) => {
+const getMoviesByCategory = async ({ categoryId, categoryName='', page=1 }) => {
 
     const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}&page=${page}`).then(res => res.json());
     const { results: movies, total_pages } = response;
@@ -100,32 +100,20 @@ const getMovie = async (id) => {
 
 const searchMovie = async (query) => {
     const response = await fetch(`${API_URL}/search/movie?api_key=${API_KEY}&query=${query}`).then(res => res.json());
-    const { results:movies } = response;
+    const { results: movies } = response;
     infoSection.innerHTML = `
         <p>Results of ${query}</p>
     `
     renderMoviesGrid({ movies });
 }
 
-let waiting = false;
+const throttledGetMoviesByCategory = throttled(getMoviesByCategory, 250);
 
 const scrollingMoviesByCategory = async () => { 
-    const { page, total_page }= categoriesHistory;
-    const limitReached = page >= total_page;
-
+    const { page } = categoriesHistory;
+    
     if(scrollBottomReached()){
-
-        if(waiting) {
-            return
-        }
-        console.log("histor", categoriesHistory);
-        waiting = true;
-        await getMoviesByCategory({
-            ...categoriesHistory,
-            page: page + 1,
-        });
-        await sleep(600);
-        waiting = false;
+        await throttledGetMoviesByCategory({...categoriesHistory, page: page + 1 })
     }
 }
 
