@@ -16,6 +16,11 @@ function navigator() {
 }
 
 function homePage(){
+    if(infiniteScroll){
+        window.removeEventListener('scroll', infiniteScroll, {passive: false});
+        infiniteScroll = undefined;
+    }
+
     $("footer").classList.remove("unvisible");
     $("movies-section").classList.remove("unvisible");
     $("header").classList.remove("unvisible");
@@ -31,6 +36,11 @@ function homePage(){
 }
 
 function searchPage(){
+    if(infiniteScroll){
+        window.removeEventListener('scroll', infiniteScroll, {passive: false});
+        infiniteScroll = undefined;
+    }
+
     searchContainer.classList.remove('active');
     $("footer").classList.add("unvisible");
     $("header").classList.remove("unvisible");
@@ -46,10 +56,20 @@ function searchPage(){
 }
 
 function trendsPage(){
+    infiniteScroll = null;
     console.log('trends!');
 }
 
 function categoryPage(){
+    if(infiniteScroll){
+        window.removeEventListener('scroll', infiniteScroll, {passive: false});
+        infiniteScroll = undefined;
+    }
+    infiniteScroll = scrollingMoviesByCategory;
+
+    window.addEventListener('scroll', infiniteScroll, { passive: false});
+
+    //
     const categoryParams = window.location.hash.replace("#category=", '').split("-");
     const categoryId = categoryParams[0];
     const categoryName = categoryParams[1];
@@ -64,10 +84,12 @@ function categoryPage(){
     $("home-button-container").classList.remove("unvisible");
     $("back-section").classList.remove("unvisible");
     searchContainer.classList.remove("active");
-    getMoviesByCategory(categoryId, categoryName);
+
+    getMoviesByCategory({ categoryId, categoryName });
 }
 
 function movieDetailPage() {
+    infiniteScroll = null;
     $("footer").classList.add("unvisible");
     $("movies-section").classList.add("unvisible");
     $("header").classList.add("unvisible");

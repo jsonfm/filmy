@@ -8,6 +8,7 @@
     window.location.hash = path;
 }
 
+
 /**
  * Render Category card
  * @param {Object} category 
@@ -72,6 +73,8 @@ const renderTrendingMovies = (movies = [], lazy=false) => {
     return html;
 }
 
+let categoriesHistory = {};
+
 /**
  * Renders Movies grid
  * @param {Object} param0 
@@ -99,9 +102,15 @@ const renderMoviesGrid = ({ movies, categoryId, categoryName, page=1 } = {}) => 
         moviesGrid.innerHTML += html;
     }
 
-    moviesGrid.innerHTML += `
-        <button onclick="getMoviesByCategory(${categoryId}, ${categoryName} , ${page + 1})">Load more</button>
-    `
+    categoriesHistory = {
+        categoryId,
+        categoryName,
+        page,
+    };
+    console.log("categories ---> ", categoriesHistory)
+    // moviesGrid.innerHTML += `
+    //     <button onclick="getMoviesByCategory(${categoryId}, '${categoryName}' , ${page + 1})">Load more</button>
+    // `
 }
 
 /**

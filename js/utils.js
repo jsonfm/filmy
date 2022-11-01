@@ -13,3 +13,12 @@ const sleep = async (ms=1000) => {
 const scrollToTop = () => {
     window.scrollTo({ top: 0 , behavior: 'smooth'});
 }
+
+/**
+ * Checks if user reaches the bottom of the view.
+ * @returns {boolean}
+ */
+const scrollBottomReached = () => {
+    const {scrollTop, scrollHeight, clientHeight } = document.documentElement;
+    return (scrollTop + clientHeight) >= (scrollHeight - 15);
+}

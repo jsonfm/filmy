@@ -41,7 +41,7 @@ const searchInput = document.getElementById('search-input');
 const searchForm = document.getElementById('search-form');
 
 
-let infintyScroll = null;
+let infiniteScroll = null;
 
 
 // Observer
@@ -57,12 +57,6 @@ const lazyloader = new IntersectionObserver((entries) => {
 
 const renderLazyImages = (images) => {
     console.log("images: ", images);
-}
-
-
-const scrollBottomReached = () => {
-    const {scrollTop, scrollHeight, clientHeight } = document.documentElement;
-    return (scrollTop + clientHeight) >= (scrollHeight - 15);
 }
 
 
@@ -87,7 +81,8 @@ const getMoviesCategories = async () => {
 }
 
 
-const getMoviesByCategory = async(categoryId, categoryName='', page=1) => {
+const getMoviesByCategory = async({categoryId, categoryName='', page=1}) => {
+
     const response = await fetch(`${API_URL}/discover/movie?api_key=${API_KEY}&with_genres=${categoryId}&page=${page}`).then(res => res.json());
     const { results: movies } = response;
 
@@ -111,6 +106,19 @@ const searchMovie = async (query) => {
     `
     renderMoviesGrid({ movies });
 }
+
+
+const scrollingMoviesByCategory = async () => {
+    if(scrollBottomReached()){
+        // console.log('bottom reached: ', categoriesHistory);
+        await sleep(400);
+        await getMoviesByCategory({
+            ...categoriesHistory,
+            page: categoriesHistory.page + 1,
+        });
+    }
+}
+
 
 themeButton.addEventListener('click', () => {
     document.body.classList.toggle('light-theme');
@@ -139,6 +147,8 @@ window.addEventListener('load', async () => {
     loadingSpinner.style.display = 'none';
 });
 
+
+window.addEventListener('scroll', infiniteScroll);
 
 getTrendingDayMovies();
 getMoviesCategories();
